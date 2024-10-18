@@ -11,10 +11,8 @@ export interface User {
   phone_number: Number | String;
   additional_contacts: String;
   help_radius: Number;
-  help_offered: Number;
-  help_requests: Number;
-  latitude: Number;
-  longitude: Number;
+  latitude?: Number;
+  longitude?: Number;
 }
 
 export const usersData: User[] = [
@@ -32,8 +30,6 @@ export const usersData: User[] = [
     phone_number: "07624 985321",
     additional_contacts: "Please call me in the afternoons",
     help_radius: 1200,
-    help_offered: 8,
-    help_requests: 3,
     latitude: 51.5072,
     longitude: -0.1806,
   },
@@ -51,8 +47,6 @@ export const usersData: User[] = [
     phone_number: "07853 241698",
     additional_contacts: "I'm available most mornings",
     help_radius: 800,
-    help_offered: 5,
-    help_requests: 1,
     latitude: 51.5458,
     longitude: -0.1879,
   },
@@ -70,8 +64,6 @@ export const usersData: User[] = [
     phone_number: "07456 982314",
     additional_contacts: "I prefer to be contacted by email",
     help_radius: 1500,
-    help_offered: 6,
-    help_requests: 4,
     latitude: 51.5117,
     longitude: -0.2026,
   },
@@ -89,8 +81,6 @@ export const usersData: User[] = [
     phone_number: "07789 456123",
     additional_contacts: "I'm available most afternoons",
     help_radius: 1000,
-    help_offered: 4,
-    help_requests: 2,
     latitude: 51.5108,
     longitude: -0.1882,
   },
@@ -108,8 +98,6 @@ export const usersData: User[] = [
     phone_number: "07456 789012",
     additional_contacts: "Please call me in the mornings",
     help_radius: 1200,
-    help_offered: 7,
-    help_requests: 3,
     latitude: 51.5096,
     longitude: -0.1951,
   },
@@ -127,8 +115,6 @@ export const usersData: User[] = [
     phone_number: "07789 456789",
     additional_contacts: "I'm available most evenings",
     help_radius: 900,
-    help_offered: 6,
-    help_requests: 2,
     latitude: 51.5108,
     longitude: -0.1871,
   },
@@ -146,8 +132,6 @@ export const usersData: User[] = [
     phone_number: "07456 123456",
     additional_contacts: "Please call me in the afternoons",
     help_radius: 1100,
-    help_offered: 5,
-    help_requests: 2,
     latitude: 51.5078,
     longitude: -0.1813,
   },
@@ -165,8 +149,6 @@ export const usersData: User[] = [
     phone_number: "07789 456123",
     additional_contacts: "I'm available most mornings",
     help_radius: 1300,
-    help_offered: 7,
-    help_requests: 4,
     latitude: 51.5139,
     longitude: -0.1904,
   },
@@ -184,8 +166,6 @@ export const usersData: User[] = [
     phone_number: "07456 789012",
     additional_contacts: "Please call me in the evenings",
     help_radius: 900,
-    help_offered: 4,
-    help_requests: 3,
     latitude: 51.5148,
     longitude: -0.1918,
   },
@@ -203,8 +183,6 @@ export const usersData: User[] = [
     phone_number: "07456 789012",
     additional_contacts: "Please call me in the evenings",
     help_radius: 900,
-    help_offered: 4,
-    help_requests: 3,
     latitude: 51.5148,
     longitude: -0.1918,
   },
