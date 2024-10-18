@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import * as usersController from "../controllers";
+import * as usersController from "../controllers/users";
 // import * as helpRequestsController from "../controllers/helpRequests";
 // import * as helpOffersController from "../controllers/helpOffers";
 // import * as typesController from "../controllers/helpTypes";
@@ -11,11 +11,11 @@ router.get("/", (req, res, next) => {
 });
 
 // * Users
-router.get("/api/users", usersController.getAll);
-// router.get("/api/users/:user_id", usersController.getById);
-// // router.delete("/api/users/:user_id", usersController.remove);
-// router.patch("/api/users/:user_id", usersController.update);
-// router.post("/api/users", usersController.create);
+router.get("/api/users", usersController.getAllUsers);
+router.get("/api/users/:user_id", usersController.getByUserId);
+router.delete("/api/users/:user_id", usersController.removeUser);
+router.patch("/api/users/:user_id", usersController.updateUser);
+router.post("/api/users", usersController.createUser);
 
 // // * Help requests
 // router.get("/api/help-requests", helpRequestsController.getAll);

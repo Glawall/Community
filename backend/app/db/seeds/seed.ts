@@ -15,22 +15,19 @@ const schemaFiles = [
 const createTables = async () => {
   try {
     await db.query(`
-            DROP TABLE IF EXISTS comments;
-            DROP TABLE IF EXISTS help_offers;
-            DROP TABLE IF EXISTS help_requests;
-            DROP TABLE IF EXISTS help_types;
-            DROP TABLE IF EXISTS users;
+            DROP TABLE IF EXISTS comments CASCADE;
+            DROP TABLE IF EXISTS help_offers CASCADE;
+            DROP TABLE IF EXISTS help_requests CASCADE;
+            DROP TABLE IF EXISTS help_types CASCADE;
+            DROP TABLE IF EXISTS users CASCADE;
         `);
 
     for (const file of schemaFiles) {
       const filePath = path.join(`${__dirname}/../../db/schema`, file);
       const sql = readFileSync(filePath, "utf-8");
       await db.query(sql);
-      //   console.log(`Created table from ${file}`);
     }
-  } catch (error) {
-    console.error("Error creating tables:", error);
-  }
+  } catch (error) {}
 };
 
 const seed = async ({
@@ -134,9 +131,7 @@ const seed = async ({
     await db.query(insertHelpRequestsDataStr);
     await db.query(insertHelpOffersDataStr);
     await db.query(insertCommentsDataStr);
-  } catch (error) {
-    console.error("Error seeding database", error);
-  }
+  } catch (error) {}
 };
 
 export default seed;
