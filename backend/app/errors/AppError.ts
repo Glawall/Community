@@ -1,7 +1,10 @@
-// AppError.ts
 interface ErrorObj {
   statusCode: number;
   message: string;
+}
+
+export interface Errors {
+  [key: string]: ErrorObj;
 }
 
 export class AppError extends Error {

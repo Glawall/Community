@@ -27,7 +27,9 @@ const createTables = async () => {
       const sql = readFileSync(filePath, "utf-8");
       await db.query(sql);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const seed = async ({
@@ -131,7 +133,9 @@ const seed = async ({
     await db.query(insertHelpRequestsDataStr);
     await db.query(insertHelpOffersDataStr);
     await db.query(insertCommentsDataStr);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default seed;

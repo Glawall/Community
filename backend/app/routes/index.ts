@@ -2,8 +2,8 @@ import express from "express";
 const router = express.Router();
 
 import * as usersController from "../controllers/users";
-// import * as helpRequestsController from "../controllers/helpRequests";
-// import * as helpOffersController from "../controllers/helpOffers";
+import * as helpRequestsController from "../controllers/helpRequests";
+import * as helpOffersController from "../controllers/helpOffers";
 // import * as typesController from "../controllers/helpTypes";
 
 router.get("/", (req, res, next) => {
@@ -17,12 +17,12 @@ router.delete("/api/users/:user_id", usersController.removeUser);
 router.patch("/api/users/:user_id", usersController.updateUser);
 router.post("/api/users", usersController.createUser);
 
-// // * Help requests
+// * Help requests
 // router.get("/api/help-requests", helpRequestsController.getAll);
-// router.get(
-//   "/api/help-requests/:help_request_id",
-//   helpRequestsController.getById
-// );
+router.get(
+  "/api/help-requests/:help_request_id",
+  helpRequestsController.getByHelpRequestId
+);
 // router.get(
 //   "/api/users/:user_id/help-requests",
 //   helpRequestsController.getByUserId
@@ -37,22 +37,28 @@ router.post("/api/users", usersController.createUser);
 //   helpRequestsController.update
 // );
 
-// // * Help Offers
-// router.get("/api/users/:user_id/help-offers", helpOffersController.getByUserId);
-// router.get(
-//   "/api/help-requests/:help_request_id/help-offers",
-//   helpOffersController.getByRequestId
-// );
-// router.post("/api/users/:user_id/help-offers", helpOffersController.create);
-// router.patch("/api/users/:user_id/help-offers", helpOffersController.update);
+// * Help Offers
+router.get("/api/users/:user_id/help-offers", helpOffersController.getByUserId);
+router.get(
+  "/api/help-requests/:help_request_id/help-offers",
+  helpOffersController.getByHelpRequestId
+);
+router.post(
+  "/api/users/:user_id/help-offers",
+  helpOffersController.createHelpOffer
+);
+router.patch(
+  "/api/help-requests/:help_request_id/help-offers/:helper_id",
+  helpOffersController.updateHelpOffer
+);
 // router.patch(
 //   "/api/help-requests/:help_request_id/help-offers",
-//   helpOffersController.requesterUpdate
+//   helpOffersController.offereeUpdateHelpOffer
 // );
-// router.delete(
-//   "/api/help-requests/:help_request_id/help-offers",
-//   helpOffersController.remove
-// );
+router.delete(
+  "/api/help-requests/:help_request_id/help-offers/:helper_id",
+  helpOffersController.removeHelpOffer
+);
 
 // // * Types
 // router.get("/api/help-types", typesController.getAll);
