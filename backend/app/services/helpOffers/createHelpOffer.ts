@@ -1,6 +1,6 @@
 import * as helpOffersRepo from "../../repositories/helpOffers";
 
-import { HelpOffer } from "../../db/seeds/test/help-offers";
+import { HelpOffer } from "../../db/seeds/data/test/help-offers";
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
 

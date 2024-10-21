@@ -8,6 +8,14 @@ export interface HelpRequest {
   status: string;
 }
 
+export interface HelpRequestBody {
+  title: string;
+  help_type: string;
+  description: string;
+  req_date: string;
+  status: string;
+}
+
 export const helpRequestsData: HelpRequest[] = [
   {
     title: "Need help with grocery shopping",

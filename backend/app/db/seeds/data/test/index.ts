@@ -1,6 +1,6 @@
 import { HelpRequest, helpRequestsData } from "./help-requests.ts";
 import { Comment, commentsData } from "./comments.ts";
-import { Type, typesData } from "./types.ts";
+import { HelpType, typesData } from "./help-types.ts";
 import { User, usersData } from "./users.ts";
 import { HelpOffer, helpOffersData } from "./help-offers.ts";
 
@@ -14,7 +14,7 @@ export const testData = {
 
 export interface Data {
   usersData: User[];
-  typesData: Type[];
+  typesData: HelpType[];
   helpRequestsData: HelpRequest[];
   commentsData: Comment[];
   helpOffersData: HelpOffer[];

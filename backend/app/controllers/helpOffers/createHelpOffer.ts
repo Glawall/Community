@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 import * as helpOffersService from "../../services/helpOffers";
 
-import { HelpOffer } from "../../db/seeds/test/help-offers";
+import { HelpOffer } from "../../db/seeds/data/test/help-offers";
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
 

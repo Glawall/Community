@@ -1,6 +1,6 @@
 import db from "../../connection";
 
-import { User } from "../../db/seeds/test/users";
+import { User } from "../../db/seeds/data/test/users";
 
 export const getAllUsers = async (): Promise<User[]> => {
   const { rows } = await db.query(

@@ -1,9 +1,9 @@
 import request from "supertest";
 import app from "../../app/app";
 import db from "../../app/connection";
-import { testData } from "../../app/db/seeds/test";
+import { testData } from "../../app/db/seeds/data/test";
 import seed from "../../app/db/seeds/seed";
-import { HelpOffer } from "../../app/db/seeds/test/help-offers";
+import { HelpOffer } from "../../app/db/seeds/data/test/help-offers";
 
 beforeEach(async () => {
   await seed(testData);
@@ -156,37 +156,47 @@ describe("getByUserId", () => {
 });
 
 describe("removeHelpOffer", () => {
-  test("204 - DELETE removes a help request and responds with a 204", async () => {
+  test("204 - DELETE removes a help offer and responds with a 204", async () => {
     await request(app)
       .delete("/api/help-requests/1/help-offers/1")
       .set("X-User-ID", "1")
       .expect(204);
   });
   test("404 - DELETE returns not found if help offer does not exist", async () => {
-    const response = await request(app)
+    const {
+      body: {
+        error: { message },
+      },
+    } = await request(app)
       .delete("/api/help-requests/1/help-offers/999")
       .set("X-User-ID", "1")
       .expect(404);
-    expect(response.body.error.message).toBe("Help offer not found");
+    expect(message).toBe("Help offer not found");
   });
 
   test("401 - DELETE returns forbidden if user is not authorized", async () => {
-    const response = await request(app)
+    const {
+      body: {
+        error: { message },
+      },
+    } = await request(app)
       .delete("/api/help-requests/1/help-offers/8")
       .set("X-User-ID", "2")
       .expect(401);
-    expect(response.body.error.message).toBe(
-      "You are not allowed to delete this help offer"
-    );
+    expect(message).toBe("You are not allowed to delete this help offer");
   });
 
   test("400 - DELETE returns bad request if parameters are invalid", async () => {
-    const response = await request(app)
+    const {
+      body: {
+        error: { message },
+      },
+    } = await request(app)
       .delete("/api/help-requests/invalid/help-offers/8")
       .set("X-User-ID", "1")
       .expect(400);
 
-    expect(response.body.error.message).toBe("Invalid parameters provided");
+    expect(message).toBe("Invalid parameters provided");
   });
 });
 

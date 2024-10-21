@@ -2,73 +2,58 @@ import * as helpRequestsRepo from "../../repositories/helpRequests/getByHelpRequ
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
 
-export const getByHelpRequestId = async (id: number, authId: number) => {
+export const getByHelpRequestId = async (id: number) => {
   const { request, helpRequestOffersRows } =
     await helpRequestsRepo.getByHelpRequestId(id);
 
-  if (request.length === 0) {
+  if (!request.length) {
     throw new AppError(
       errors.HELP_REQUEST_NOT_FOUND,
-      `Help request was not found`
+      "Help request was not found"
     );
   }
 
+  const reqDetails = request[0];
   const reqObj = {
-    id: request[0].help_request_id,
-    title: request[0].title,
-    author_id: request[0].author_id,
-    help_type: request[0].name,
-    description: request[0].description,
-    created_at: request[0].created_at,
-    req_date: request[0].req_date,
-    status: request[0].status,
+    id: reqDetails.help_request_id,
+    title: reqDetails.title,
+    author_id: reqDetails.author_id,
+    help_type: reqDetails.name,
+    description: reqDetails.description,
+    created_at: reqDetails.created_at,
+    req_date: reqDetails.req_date,
+    status: reqDetails.status,
+    help_type_id: reqDetails.help_type_id,
+    name: reqDetails.help_type_name,
   };
 
   const requesterObj = {
-    id: request[0].author_id,
-    first_name: request[0].first_name,
-    last_name: request[0].last_name,
-    postcode: request[0].postcode,
-    additional_contacts: request[0].additional_contacts,
-    phone_number: request[0].phone_number,
-    address: request[0].address,
+    id: reqDetails.author_id,
+    first_name: reqDetails.first_name,
+    last_name: reqDetails.last_name,
+    postcode: reqDetails.postcode,
+    additional_contacts: reqDetails.additional_contacts,
+    phone_number: reqDetails.phone_number,
+    address: reqDetails.address,
   };
 
-  const offersArr: any = [];
+  const offersArr = helpRequestOffersRows.map((offer: any) => ({
+    status: offer.status,
+    helper: {
+      id: offer.helper_id,
+      first_name: offer.first_name,
+      last_name: offer.last_name,
+      postcode: offer.postcode,
+      description: offer.description,
+      additional_contacts: offer.additional_contacts,
+      phone_number: offer.phone_number,
+      address: offer.address,
+    },
+  }));
 
-  helpRequestOffersRows.forEach((offer: any) => {
-    if (request[0].author_id === authId) {
-      offersArr.push({
-        status: offer.status,
-        helper: {
-          id: offer.helper_id,
-          first_name: offer.first_name,
-          last_name: offer.last_name,
-          postcode: offer.postcode,
-          description: offer.description,
-          additional_contacts: offer.additional_contacts,
-
-          phone_number: offer.phone_number,
-          address: offer.address,
-        },
-      });
-    } else {
-      offersArr.push({
-        status: offer.status,
-        helper: {
-          id: offer.helper_id,
-          first_name: offer.first_name,
-          last_name: offer.last_name,
-        },
-      });
-    }
-  });
-
-  const helpRequestById = {
+  return {
     request: reqObj,
     requester: requesterObj,
     offers: offersArr,
   };
-
-  return helpRequestById;
 };
