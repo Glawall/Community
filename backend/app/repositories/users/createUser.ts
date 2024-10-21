@@ -1,5 +1,5 @@
 import db from "../../connection";
-import { User } from "../../db/seeds/test/users";
+import { User } from "../../db/seeds/data/test/users";
 import { postcodeConverter } from "../../utils/postcodeConverter";
 
 import { AppError } from "../../errors/AppError";

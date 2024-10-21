@@ -1,9 +1,9 @@
-export interface Type {
+export interface HelpType {
   name: String;
   description: string;
 }
 
-export const typesData: Type[] = [
+export const typesData: HelpType[] = [
   {
     name: "Shopping",
     description:

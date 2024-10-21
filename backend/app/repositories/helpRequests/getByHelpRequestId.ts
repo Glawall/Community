@@ -46,7 +46,7 @@ export const getByHelpRequestId = async (id: number): Promise<any> => {
         help_requests.req_date,
         help_requests.status,
         help_requests.help_type_id,
-        help_types.name
+        help_types.name AS help_type_name
 
         FROM
             help_requests

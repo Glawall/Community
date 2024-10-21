@@ -2,9 +2,9 @@ import request from "supertest";
 import app from "../../app/app";
 import db from "../../app/connection";
 
-import { testData } from "../../app/db/seeds/test";
+import { testData } from "../../app/db/seeds/data/test";
 import seed from "../../app/db/seeds/seed";
-import { User } from "../../app/db/seeds/test/users";
+import { User } from "../../app/db/seeds/data/test/users";
 
 beforeEach(async () => {
   await seed(testData);
@@ -16,7 +16,6 @@ afterAll(async () => {
 
 describe("createUser", () => {
   test("201 - POST: Responds with a newly created user", async () => {
-    await seed(testData);
     const userBody: User = {
       username: "glawall",
       email: "glawall@hotmail.com",

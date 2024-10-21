@@ -2,7 +2,7 @@ import format from "pg-format";
 import { readFileSync } from "fs";
 import path from "path";
 import db from "../../connection";
-import { Data } from "./test";
+import { Data } from "./data/test";
 
 const schemaFiles = [
   "users.sql",

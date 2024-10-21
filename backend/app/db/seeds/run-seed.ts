@@ -1,7 +1,7 @@
 import seed from "./seed";
 import db from "../../connection";
-import { Data } from "./test"; // Ensure Data is a properly defined type
-import { testData } from "./test";
+import { Data } from "./data/test"; // Ensure Data is a properly defined type
+import { testData } from "./data/test";
 
 // const devData: Data[] = []; // Uncomment and define your dev data structure
 

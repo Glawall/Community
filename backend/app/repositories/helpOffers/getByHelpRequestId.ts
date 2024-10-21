@@ -1,5 +1,5 @@
 import db from "../../connection";
-import { HelpOffer } from "../../db/seeds/test/help-offers";
+import { HelpOffer } from "../../db/seeds/data/test/help-offers";
 
 export const getByHelpRequestId = async (
   help_request_id: number

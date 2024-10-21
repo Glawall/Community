@@ -8,11 +8,8 @@ export const getByHelpRequestId = async (
   res: Response,
   next: NextFunction
 ) => {
-  const AuthUserId = Number(req.header("X-User-ID"));
-
   try {
     const help_request_id = Number(req.params.help_request_id);
-    console.log(help_request_id);
 
     if (isNaN(help_request_id)) {
       throw new AppError(
@@ -22,8 +19,7 @@ export const getByHelpRequestId = async (
     }
 
     const helpRequest = await helpRequestsService.getByHelpRequestId(
-      help_request_id,
-      AuthUserId
+      help_request_id
     );
 
     res.status(200).send({ helpRequest });
