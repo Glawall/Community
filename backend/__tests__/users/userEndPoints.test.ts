@@ -78,9 +78,7 @@ describe("createUser", () => {
         error: { message },
       },
     } = await request(app).post("/api/users").send(userBody).expect(400);
-    expect(message).toMatch(
-      "Mandatory fields (first_name, last_name, address, postcode, longitude, latitude) are required."
-    );
+    expect(message).toMatch("You need to fill in the mandatory field");
   });
 });
 
@@ -115,7 +113,7 @@ describe("getUserById", () => {
         error: { message },
       },
     } = await request(app).get("/api/users/15").expect(404);
-    expect(message).toBe("No user was found with id: 15");
+    expect(message).toBe("User was not found");
   });
 
   test("400 - GET: Responds with appropriate error when invalid user_id provided", async () => {
@@ -136,11 +134,62 @@ describe("updateUser", () => {
     };
     const {
       body: { updatedUser },
-    } = await request(app).patch("/api/users/1").send(userBody).expect(200);
+    } = await request(app)
+      .patch("/api/users/1")
+      .set("X-User-ID", "1")
+      .send(userBody)
+      .expect(200);
     expect(updatedUser).toMatchObject({
       email: "glawall@hotmail.com",
       phone_number: "07777888999",
     });
+  });
+  test("400 - PATCH: Responds with bad request if user ID is invalid", async () => {
+    const userBody: Partial<User> = {
+      email: "invalid@example.com",
+      phone_number: "01234567890",
+    };
+    const {
+      body: {
+        error: { message },
+      },
+    } = await request(app)
+      .patch("/api/users/invalid")
+      .send(userBody)
+      .expect(400);
+    expect(message).toBe("Invalid user id provided");
+  });
+  test("404 - PATCH: Responds with not found if user does not exist", async () => {
+    const userBody: Partial<User> = {
+      email: "nonexistent@example.com",
+      phone_number: "01234567890",
+    };
+    const {
+      body: {
+        error: { message },
+      },
+    } = await request(app)
+      .patch("/api/users/999")
+      .set("X-User-ID", "999")
+      .send(userBody)
+      .expect(404);
+    expect(message).toBe("User was not found");
+  });
+  test("401 - PATCH: Responds with unauthorized if user is not allowed to update", async () => {
+    const userBody: Partial<User> = {
+      email: "email@example.com",
+      phone_number: "01234567890",
+    };
+    const {
+      body: {
+        error: { message },
+      },
+    } = await request(app)
+      .patch("/api/users/2")
+      .set("X-User-ID", "1")
+      .send(userBody)
+      .expect(401);
+    expect(message).toBe("You are not authorised to update this user");
   });
 });
 
@@ -169,6 +218,39 @@ describe("getAllUsers", () => {
 
 describe("removeUser", () => {
   test("204 - Delete: responds with a status and no content", async () => {
-    return request(app).delete("/api/users/1").expect(204);
+    return request(app)
+      .delete("/api/users/1")
+      .set("X-User-ID", "1")
+      .expect(204);
+  });
+  test("404 - Delete: responds with not found if user does not exist", async () => {
+    const {
+      body: {
+        error: { message },
+      },
+    } = await request(app)
+      .delete("/api/users/999")
+      .set("X-User-ID", "999")
+      .expect(404);
+    expect(message).toBe("User was not found");
+  });
+  test("400 - Delete: responds with bad request if user ID is invalid", async () => {
+    const {
+      body: {
+        error: { message },
+      },
+    } = await request(app).delete("/api/users/invalid").expect(400);
+    expect(message).toBe("Invalid user id provided");
+  });
+  test("401 - Delete: responds with forbidden if user is not authorised", async () => {
+    const {
+      body: {
+        error: { message },
+      },
+    } = await request(app)
+      .delete("/api/users/2")
+      .set("X-User-ID", "1")
+      .expect(401);
+    expect(message).toBe("You are not authorised to delete this user");
   });
 });

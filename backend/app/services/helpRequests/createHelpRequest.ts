@@ -13,10 +13,7 @@ export const createHelpRequest = async (
     helpOfferBody
   );
   if (!newHelpRequest) {
-    throw new AppError(
-      errors.REPOSITORY_ERROR,
-      `Error occurred while creating help offer: ${author_id}`
-    );
+    throw new AppError(errors.REPOSITORY_ERROR);
   }
   return newHelpRequest;
 };

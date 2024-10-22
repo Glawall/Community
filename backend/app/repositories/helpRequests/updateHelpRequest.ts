@@ -5,8 +5,8 @@ import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
 
 export const updateHelpRequest = async (
-  author_id: Number,
-  help_request_id: Number,
+  authUserId: Number,
+  helpRequestId: Number,
   helpRequestBody: HelpRequestBody
 ): Promise<any> => {
   const { title, description, help_type, req_date, status } = helpRequestBody;
@@ -23,8 +23,8 @@ export const updateHelpRequest = async (
   if (description) {
     updates.push(`description =$${values.push(description)}`);
   }
-  if (author_id) {
-    updates.push(`author_id =$${values.push(author_id)}`);
+  if (authUserId) {
+    updates.push(`author_id =$${values.push(authUserId)}`);
   }
   if (req_date) {
     updates.push(`req_date =$${values.push(req_date)}`);
@@ -34,13 +34,13 @@ export const updateHelpRequest = async (
   }
 
   if (updates.length === 0) {
-    throw new AppError(errors.MANDATORY_FIELD_ERROR, "No fields to update");
+    throw new AppError(errors.MANDATORY_FIELD_ERROR);
   }
   const query = `
         UPDATE
             help_requests SET ${updates}
         WHERE
-            id = ${help_request_id}
+            id = ${helpRequestId}
         RETURNING
             id,
             title,

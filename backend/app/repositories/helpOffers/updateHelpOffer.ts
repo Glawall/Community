@@ -19,12 +19,5 @@ export const updateHelpOffer = async (
     RETURNING helper_id, help_request_id, status`;
 
   const { rows } = await db.query(query, values);
-  if (rows.length === 0) {
-    throw new AppError(
-      errors.HELP_OFFER_NOT_FOUND,
-      "Help offer not found for this help request and helper ID"
-    );
-  }
-
   return rows[0];
 };

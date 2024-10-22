@@ -2,20 +2,14 @@ import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
 import * as helpRequestsRepo from "../../repositories/helpRequests";
 import * as userRepo from "../../repositories/users";
+import { userExists } from "../../utils";
 
-export const getByUserId = async (id: number) => {
-  const user = await userRepo.getByUserId(id);
+export const getByUserId = async (userId: number) => {
+  await userExists(userId);
 
-  if (!user) {
-    throw new AppError(errors.USER_NOT_FOUND, "User not found");
-  }
-
-  const helpRequest = await helpRequestsRepo.getByUserId(id);
+  const helpRequest = await helpRequestsRepo.getByUserId(userId);
   if (!helpRequest) {
-    throw new AppError(
-      errors.HELP_REQUEST_NOT_FOUND,
-      `No help request found with id: ${id}`
-    );
+    throw new AppError(errors.HELP_REQUEST_NOT_FOUND);
   }
   return helpRequest;
 };

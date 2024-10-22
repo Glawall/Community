@@ -4,6 +4,8 @@ import * as helpRequestsService from "../../services/helpRequests/createHelpRequ
 import { HelpRequestBody } from "../../db/seeds/data/test/help-requests";
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
+import { checkExists, userExists } from "../../utils/checkExists";
+import { checkValidInput } from "../../utils/checkValidation";
 
 export const createHelpRequest = async (
   req: Request,
@@ -11,18 +13,17 @@ export const createHelpRequest = async (
   next: NextFunction
 ) => {
   try {
-    const author_id = Number(req.header("X-User-ID"));
+    const authUserId = Number(req.header("X-User-ID"));
+    await checkValidInput(authUserId, "USER");
 
-    if (isNaN(author_id)) {
-      throw new AppError(errors.VALIDATION_ERROR, "Invalid user id provided");
-    }
-    if (!author_id) {
-      throw new AppError(errors.AUTHORISATION_ERROR, "Authorisation failed");
+    await userExists(authUserId);
+    if (!authUserId) {
+      throw new AppError(errors.AUTHORISATION_ERROR);
     }
 
     const helpRequestBody: HelpRequestBody = req.body;
     const newHelpRequest = await helpRequestsService.createHelpRequest(
-      author_id,
+      authUserId,
       helpRequestBody
     );
     res.status(201).send({ newHelpRequest });

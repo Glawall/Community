@@ -2,7 +2,7 @@ import db from "../../connection";
 import { HelpOffer } from "../../db/seeds/data/test/help-offers";
 
 export const getByHelpRequestId = async (
-  help_request_id: number
+  helpRequestId: number
 ): Promise<HelpOffer[]> => {
   const { rows } = await db.query(
     `SELECT
@@ -25,7 +25,7 @@ export const getByHelpRequestId = async (
             help_requests.id = help_offers.help_request_id
         WHERE
             help_requests.id = $1`,
-    [help_request_id]
+    [helpRequestId]
   );
   return rows;
 };

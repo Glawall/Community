@@ -79,6 +79,15 @@ const seed = async ({
       )
     );
 
+    await db.query(insertUsersStr);
+
+    const insertHelpTypeDataStr = format(
+      "INSERT INTO help_types (name, description) VALUES %L",
+      typesData.map(({ name, description }) => [name, description])
+    );
+
+    await db.query(insertHelpTypeDataStr);
+
     const insertHelpRequestsDataStr = format(
       "INSERT INTO help_requests (title, author_id, help_type_id, description, created_at, req_date, status) VALUES %L",
       helpRequestsData.map(
@@ -102,6 +111,8 @@ const seed = async ({
       )
     );
 
+    await db.query(insertHelpRequestsDataStr);
+
     const insertHelpOffersDataStr = format(
       "INSERT INTO help_offers (helper_id, help_request_id, status) VALUES %L",
       helpOffersData.map(({ helper_id, help_request_id, status }) => [
@@ -111,9 +122,15 @@ const seed = async ({
       ])
     );
 
-    const insertCommentsDataStr = format(
-      "INSERT INTO comments (author_id, help_request_id, created_at, description) VALUES %L",
-      commentsData.map(
+    await db.query(insertHelpOffersDataStr);
+
+    const parentCommentsData = commentsData.filter(
+      (comment) => comment.parent_id === null
+    );
+
+    const insertParentCommentsStr = format(
+      "INSERT INTO comments (author_id, help_request_id, created_at, description) VALUES %L RETURNING id, description;",
+      parentCommentsData.map(
         ({ author_id, help_request_id, created_at, description }) => [
           author_id,
           help_request_id,
@@ -123,16 +140,29 @@ const seed = async ({
       )
     );
 
-    const insertHelpTypeDataStr = format(
-      "INSERT INTO help_types (name, description) VALUES %L",
-      typesData.map(({ name, description }) => [name, description])
+    const parentCommentsResult = await db.query(insertParentCommentsStr);
+    const parentComments = parentCommentsResult.rows;
+
+    const childCommentsData = commentsData.filter(
+      (comment) => comment.parent_id !== null
     );
 
-    await db.query(insertUsersStr);
-    await db.query(insertHelpTypeDataStr);
-    await db.query(insertHelpRequestsDataStr);
-    await db.query(insertHelpOffersDataStr);
-    await db.query(insertCommentsDataStr);
+    const insertChildCommentsStr = format(
+      "INSERT INTO comments (author_id, help_request_id, parent_id, created_at, description) VALUES %L",
+      childCommentsData.map(
+        ({
+          author_id,
+          help_request_id,
+          parent_id,
+          created_at,
+          description,
+        }) => [author_id, help_request_id, parent_id, created_at, description]
+      )
+    );
+
+    if (childCommentsData.length > 0) {
+      await db.query(insertChildCommentsStr);
+    }
   } catch (error) {
     console.log(error);
   }

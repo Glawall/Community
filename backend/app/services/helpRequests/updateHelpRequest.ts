@@ -2,33 +2,24 @@ import { HelpRequestBody } from "../../db/seeds/data/test/help-requests";
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
 import * as helpRequestsRepo from "../../repositories/helpRequests";
+import { helpRequestExists } from "../../utils";
 
 export const updateHelpRequest = async (
-  author_id: number,
-  help_request_id: number,
+  authUserId: number,
+  helpRequestId: number,
   helpRequestBody: HelpRequestBody
 ) => {
-  const { request } = await helpRequestsRepo.getByHelpRequestId(
-    help_request_id
-  );
-
-  if (!request || request.length === 0) {
-    throw new AppError(errors.HELP_REQUEST_NOT_FOUND, "Help request not found");
-  }
-
+  const { request } = await helpRequestExists(helpRequestId);
   const requester = request[0];
   const requesterUserId = requester.author_id;
 
-  if (requesterUserId !== author_id) {
-    throw new AppError(
-      errors.AUTHORISATION_ERROR,
-      "You are not allowed to update this help request"
-    );
+  if (requesterUserId !== authUserId) {
+    throw new AppError(errors.HELP_REQUEST_UPDATE_AUTHORISATION_ERROR);
   }
 
   const helpRequest = await helpRequestsRepo.updateHelpRequest(
-    author_id,
-    help_request_id,
+    authUserId,
+    helpRequestId,
     helpRequestBody
   );
 

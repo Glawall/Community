@@ -11,8 +11,8 @@ export const helpOffersData: HelpOffer[] = [
     status: "accepted",
   },
   {
-    helper_id: 2,
-    help_request_id: 2,
+    helper_id: 1,
+    help_request_id: 3,
     status: "active",
   },
   {

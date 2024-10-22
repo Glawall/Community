@@ -12,10 +12,5 @@ export const removeHelpOffer = async (
   `;
 
   const values = [help_request_id, helper_id];
-
   const { rowCount } = await db.query(query, values);
-
-  if (rowCount === 0) {
-    throw new AppError(errors.HELP_OFFER_NOT_FOUND, "Help offer not found");
-  }
 };

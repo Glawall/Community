@@ -4,20 +4,21 @@ import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
 import * as usersService from "../../services/users";
 import * as helpOffersService from "../../services/helpOffers/getByUserId";
+import { checkValidInput } from "../../utils/checkValidation";
 
 export const getByUserId = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const user_id = Number(req.params.user_id);
   try {
-    if (isNaN(user_id)) {
-      throw new AppError(errors.VALIDATION_ERROR, "Invalid user id provided");
+    const authUserId = Number(req.header("X-User-ID"));
+    const userId = Number(req.params.user_id);
+    await checkValidInput(userId, "USER");
+    if (authUserId !== userId) {
+      throw new AppError(errors.AUTHORISATION_ERROR);
     }
-    await usersService.getByUserId(user_id);
-
-    const userHelpOffers = await helpOffersService.getByUserId(user_id);
+    const userHelpOffers = await helpOffersService.getByUserId(userId);
     res.status(200).send({ userHelpOffers });
   } catch (error) {
     next(error);
