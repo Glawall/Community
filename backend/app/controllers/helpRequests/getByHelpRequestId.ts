@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import * as helpRequestsService from "../../services/helpRequests/getByHelpRequestId";
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
+import { helpRequestExists } from "../../utils";
+import { checkValidInput } from "../../utils/checkValidation";
 
 export const getByHelpRequestId = async (
   req: Request,
@@ -9,17 +11,11 @@ export const getByHelpRequestId = async (
   next: NextFunction
 ) => {
   try {
-    const help_request_id = Number(req.params.help_request_id);
-
-    if (isNaN(help_request_id)) {
-      throw new AppError(
-        errors.VALIDATION_ERROR,
-        "Invalid help request id provided"
-      );
-    }
+    const helpRequestId = Number(req.params.help_request_id);
+    await checkValidInput(helpRequestId, "HELP_REQUEST");
 
     const helpRequest = await helpRequestsService.getByHelpRequestId(
-      help_request_id
+      helpRequestId
     );
 
     res.status(200).send({ helpRequest });

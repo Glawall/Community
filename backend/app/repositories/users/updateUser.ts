@@ -2,7 +2,7 @@ import db from "../../connection";
 import { User } from "../../db/seeds/data/test/users";
 
 export const updateUser = async (
-  id: string,
+  id: number,
   updateBody: any
 ): Promise<User> => {
   const {
@@ -60,5 +60,6 @@ export const updateUser = async (
   values.push(id);
 
   const { rows } = await db.query(query, values);
+
   return rows[0];
 };

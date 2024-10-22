@@ -22,7 +22,7 @@ const getHttpError = (appError: AppError) => {
 
   return {
     statusCode: savedErrorObj.statusCode,
-    message: appError.getMessage(),
+    message: savedErrorObj.message,
   };
 };
 

@@ -1,9 +1,11 @@
 import * as helpOffersRepo from "../../repositories/helpOffers/getByUserId";
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
+import { helpRequestExists, userExists } from "../../utils";
 
-export const getByUserId = async (id: number) => {
-  const { requests, offers } = await helpOffersRepo.getByUserId(id);
+export const getByUserId = async (userId: number) => {
+  await userExists(userId);
+  const { requests, offers } = await helpOffersRepo.getByUserId(userId);
 
   const userHelpOffers: any = [];
 
@@ -28,7 +30,10 @@ export const getByUserId = async (id: number) => {
     const offersArr: any = [];
 
     offers.forEach((offer: any) => {
-      if (req.help_request_id === offer.help_request_id && offer.id === id) {
+      if (
+        req.help_request_id === offer.help_request_id &&
+        offer.id === userId
+      ) {
         offersArr.push({
           status: offer.status,
           helper: {
@@ -40,7 +45,7 @@ export const getByUserId = async (id: number) => {
       }
       if (
         req.help_request_id === offer.help_request_id &&
-        offer.id !== id &&
+        offer.id !== userId &&
         offer.status === "accepted"
       ) {
         offersArr.push({
@@ -62,10 +67,7 @@ export const getByUserId = async (id: number) => {
   });
 
   if (!userHelpOffers) {
-    throw new AppError(
-      errors.REPOSITORY_ERROR,
-      `Error occurred while creating help offer`
-    );
+    throw new AppError(errors.REPOSITORY_ERROR);
   }
 
   return userHelpOffers;

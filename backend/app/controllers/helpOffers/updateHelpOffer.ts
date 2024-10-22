@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { AppError } from "../../errors/AppError";
-import { errors } from "../../errors/errors";
+import { checkValidInput } from "../../utils/checkValidation";
 import * as helpOffersService from "../../services/helpOffers";
-
+import { helpOfferExists } from "../../utils";
 export const updateHelpOffer = async (
   req: Request,
   res: Response,
@@ -13,12 +12,8 @@ export const updateHelpOffer = async (
     const helperId = Number(req.params.helper_id);
     const helpRequestId = Number(req.params.help_request_id);
 
-    if (isNaN(helpRequestId) || isNaN(helperId) || isNaN(authUserId)) {
-      throw new AppError(
-        errors.VALIDATION_ERROR,
-        "Invalid parameters provided"
-      );
-    }
+    await checkValidInput(helpRequestId, "HELP_REQUEST");
+    await checkValidInput(helperId, "USER");
 
     const updatedHelpOffer = await helpOffersService.updateHelpOffer(
       helpRequestId,

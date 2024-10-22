@@ -1,4 +1,4 @@
-interface ErrorObj {
+export interface ErrorObj {
   statusCode: number;
   message: string;
 }
@@ -8,19 +8,13 @@ export interface Errors {
 }
 
 export class AppError extends Error {
-  private errorObj: ErrorObj;
-
-  constructor(errorObj: ErrorObj, message: string) {
-    super(message);
-    this.message = message;
-    this.errorObj = errorObj;
-  }
-
-  getMessage(): string {
-    return this.message;
+  statusCode: number;
+  constructor(errorObj: ErrorObj) {
+    super(errorObj.message);
+    this.statusCode = errorObj.statusCode;
   }
 
   getErrorObj(): ErrorObj {
-    return this.errorObj;
+    return { statusCode: this.statusCode, message: this.message };
   }
 }

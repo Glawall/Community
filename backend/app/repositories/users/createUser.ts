@@ -39,10 +39,7 @@ export const createUser = async (userBody: User): Promise<User> => {
     !latitude ||
     !help_radius
   ) {
-    throw new AppError(
-      errors.MANDATORY_FIELD_ERROR,
-      "Mandatory fields (first_name, last_name, address, postcode, longitude, latitude) are required."
-    );
+    throw new AppError(errors.MANDATORY_FIELD_ERROR);
   }
 
   const values = [

@@ -90,7 +90,7 @@ describe("getByUserId", () => {
     const {
       body: { error },
     } = await request(app).get("/api/users/9999/help-requests").expect(404);
-    expect(error).toMatchObject({ message: "User not found" });
+    expect(error).toMatchObject({ message: "User was not found" });
   });
   test("400 - GET: responds with an error when the user_id is not a valid number", async () => {
     const {
@@ -140,7 +140,26 @@ describe("createHelpRequest", () => {
       .send(helpRequestBody)
       .expect(400);
     expect(error).toEqual({
-      message: "You haven't filled in all the parameters",
+      message: "You need to fill in the mandatory field",
+    });
+  });
+  test("400 - POST: responds with an error if user ID is invalid", async () => {
+    const helpRequestBody: Partial<HelpRequestBody> = {
+      title: "Help with my prescription collection",
+      help_type: "Shopping",
+      description: "Would someone be able to go collect my prescription",
+      req_date: "2024-05-27T10:00:00.000Z",
+    };
+
+    const {
+      body: { error },
+    } = await request(app)
+      .post("/api/help-requests")
+      .set("X-User-ID", "invalid-id")
+      .send(helpRequestBody)
+      .expect(400);
+    expect(error).toEqual({
+      message: "Invalid user id provided",
     });
   });
   test("400 - POST: responds with an error if user ID is invalid", async () => {
@@ -203,7 +222,22 @@ describe("updateHelpRequest", () => {
       .send(helpRequestBody)
       .expect(404);
 
-    expect(error).toEqual({ message: "Help request not found" });
+    expect(error).toEqual({ message: "Help request was not found" });
+  });
+  test("404 - PATCH: responds with a not found error when help request does not exist", async () => {
+    const helpRequestBody: Partial<HelpRequestBody> = {
+      title: "Help with my prescription collection",
+    };
+
+    const {
+      body: { error },
+    } = await request(app)
+      .patch("/api/help-requests/invalid")
+      .set("X-User-ID", "1")
+      .send(helpRequestBody)
+      .expect(400);
+
+    expect(error).toEqual({ message: "Invalid help request id provided" });
   });
 
   test("403 - PATCH: responds with an authorization error when user is not allowed to update", async () => {
@@ -220,7 +254,7 @@ describe("updateHelpRequest", () => {
       .expect(401);
 
     expect(error).toEqual({
-      message: "You are not allowed to update this help request",
+      message: "You are not authorised to update this help request",
     });
   });
 });
@@ -241,7 +275,7 @@ describe("removeHelpRequest", () => {
       .delete("/api/help-requests/999/")
       .set("X-User-ID", "1")
       .expect(404);
-    expect(message).toBe("Help request not found");
+    expect(message).toBe("Help request was not found");
   });
 
   test("401 - DELETE returns unauthorised if user is not authorized", async () => {
@@ -253,7 +287,7 @@ describe("removeHelpRequest", () => {
       .delete("/api/help-requests/1")
       .set("X-User-ID", "2")
       .expect(401);
-    expect(message).toBe("You are not allowed to delete this help request");
+    expect(message).toBe("You are not authorised to delete this help request");
   });
 
   test("400 - DELETE returns bad request if parameters are invalid", async () => {
@@ -265,7 +299,6 @@ describe("removeHelpRequest", () => {
       .delete("/api/help-requests/invalid")
       .set("X-User-ID", "1")
       .expect(400);
-
-    expect(message).toBe("Invalid parameters provided");
+    expect(message).toBe("Invalid help request id provided");
   });
 });

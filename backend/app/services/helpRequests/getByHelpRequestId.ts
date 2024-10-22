@@ -7,10 +7,7 @@ export const getByHelpRequestId = async (id: number) => {
     await helpRequestsRepo.getByHelpRequestId(id);
 
   if (!request.length) {
-    throw new AppError(
-      errors.HELP_REQUEST_NOT_FOUND,
-      "Help request was not found"
-    );
+    throw new AppError(errors.HELP_REQUEST_NOT_FOUND);
   }
 
   const reqDetails = request[0];

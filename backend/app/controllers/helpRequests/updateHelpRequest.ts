@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 import * as helpRequestsServices from "../../services/helpRequests";
+import { checkValidInput } from "../../utils/checkValidation";
 
 export const updateHelpRequest = async (
   req: Request,
@@ -8,12 +9,12 @@ export const updateHelpRequest = async (
   next: NextFunction
 ) => {
   try {
-    const AuthUserId = Number(req.header("X-User-ID"));
+    const authUserId = Number(req.header("X-User-ID"));
     const helpRequestBody = req.body;
     const helpRequestId = Number(req.params.help_request_id);
-
+    await checkValidInput(helpRequestId, "HELP_REQUEST");
     const updatedHelpRequest = await helpRequestsServices.updateHelpRequest(
-      AuthUserId,
+      authUserId,
       helpRequestId,
       helpRequestBody
     );

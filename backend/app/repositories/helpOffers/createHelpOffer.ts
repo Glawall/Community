@@ -2,7 +2,7 @@ import db from "../../connection";
 import { HelpOffer } from "../../db/seeds/data/test/help-offers";
 
 export const createHelpOffer = async (
-  helper_id: number,
+  helperId: number,
   helpOfferBody: HelpOffer
 ): Promise<HelpOffer> => {
   const { status, help_request_id } = helpOfferBody;
@@ -14,7 +14,7 @@ export const createHelpOffer = async (
     RETURNING helper_id, help_request_id, status
     `;
 
-  const values = [helper_id, help_request_id, status];
+  const values = [helperId, help_request_id, status];
 
   const { rows } = await db.query(query, values);
 

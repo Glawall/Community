@@ -1,6 +1,8 @@
 import db from "../../connection";
 
-export const getByHelpRequestId = async (id: number): Promise<any> => {
+export const getByHelpRequestId = async (
+  helpRequestIid: number
+): Promise<any> => {
   const helpRequestOffers = await db.query(
     `SELECT
             users.id AS user_id,
@@ -23,7 +25,7 @@ export const getByHelpRequestId = async (id: number): Promise<any> => {
         WHERE 
             help_offers.help_request_id = $1`,
 
-    [id]
+    [helpRequestIid]
   );
   const helpRequestOffersRows = helpRequestOffers.rows;
 
@@ -61,7 +63,7 @@ export const getByHelpRequestId = async (id: number): Promise<any> => {
         WHERE 
             help_requests.id = $1`,
 
-    [id]
+    [helpRequestIid]
   );
   const request = helpRequest.rows;
 

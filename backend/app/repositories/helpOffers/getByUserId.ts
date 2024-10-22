@@ -92,6 +92,5 @@ export const getByUserId = async (user_id: number): Promise<any> => {
   );
 
   const offers = acceptedOffers.rows;
-
   return { requests, offers };
 };

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
 import * as helpOffersServices from "../../services/helpOffers/removeHelpOffer";
+import { checkValidInput } from "../../utils/checkValidation";
 
 export const removeHelpOffer = async (
   req: Request,
@@ -12,13 +13,9 @@ export const removeHelpOffer = async (
     const authUserId = Number(req.header("X-User-ID"));
     const helperId = Number(req.params.helper_id);
     const helpRequestId = Number(req.params.help_request_id);
+    await checkValidInput(helpRequestId, "HELP_REQUEST");
+    await checkValidInput(helperId, "USER");
 
-    if (isNaN(helpRequestId) || isNaN(helperId) || isNaN(authUserId)) {
-      throw new AppError(
-        errors.VALIDATION_ERROR,
-        "Invalid parameters provided"
-      );
-    }
     await helpOffersServices.removeHelpOffer(
       helpRequestId,
       helperId,
