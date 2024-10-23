@@ -3,7 +3,6 @@ import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
 import * as usersService from "../../services/users";
 import { checkValidInput } from "../../utils/checkValidation";
-
 export const updateUser = async (
   req: Request,
   res: Response,

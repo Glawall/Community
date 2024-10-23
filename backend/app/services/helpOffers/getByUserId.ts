@@ -1,7 +1,7 @@
 import * as helpOffersRepo from "../../repositories/helpOffers/getByUserId";
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
-import { userExists } from "../../utils";
+import { helpRequestExists, userExists } from "../../utils";
 
 export const getByUserId = async (userId: number) => {
   await userExists(userId);
