@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
+
 import * as helpRequestsService from "../../services/helpRequests/createHelpRequest";
 import { HelpRequestBody } from "../../db/seeds/data/test/help-requests";
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
-import { userExists } from "../../utils/checkExists";
+import { checkExists, userExists } from "../../utils/checkExists";
 import { checkValidInput } from "../../utils/checkValidation";
 
 export const createHelpRequest = async (

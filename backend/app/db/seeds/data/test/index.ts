@@ -1,8 +1,8 @@
-import { HelpRequest, helpRequestsData } from "./help-requests";
-import { Comment, commentsData } from "./comments";
-import { HelpType, typesData } from "./help-types";
-import { User, usersData } from "./users";
-import { HelpOffer, helpOffersData } from "./help-offers";
+import { HelpRequest, helpRequestsData } from "./help-requests.ts";
+import { Comment, commentsData } from "./comments.ts";
+import { HelpType, typesData } from "./help-types.ts";
+import { User, usersData } from "./users.ts";
+import { HelpOffer, helpOffersData } from "./help-offers.ts";
 
 export const testData = {
   helpRequestsData,
