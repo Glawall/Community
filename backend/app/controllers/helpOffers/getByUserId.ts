@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
-import * as usersService from "../../services/users";
 import * as helpOffersService from "../../services/helpOffers/getByUserId";
 import { checkValidInput } from "../../utils/checkValidation";
 

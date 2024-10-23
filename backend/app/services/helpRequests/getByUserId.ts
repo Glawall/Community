@@ -1,7 +1,6 @@
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
 import * as helpRequestsRepo from "../../repositories/helpRequests";
-import * as userRepo from "../../repositories/users";
 import { userExists } from "../../utils";
 
 export const getByUserId = async (userId: number) => {
