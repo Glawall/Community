@@ -2,14 +2,10 @@
   "name": "community",
   "version": "1.0.0",
   "main": "index.js",
-  "main": "index.js",
   "scripts": {
     "test": "jest",
     "start": "ts-node app/index.ts",
-    "start": "ts-node app/index.ts",
     "build": "rimraf ./dist && tsc",
-    "dev": "nodemon --exec ts-node app/index.ts",
-    "seed": "ts-node ./app/db/seeds/seed.ts",
     "dev": "nodemon --exec ts-node app/index.ts",
     "seed": "ts-node ./app/db/seeds/seed.ts",
     "seed-test": "NODE_ENV=test npm run seed",
@@ -25,18 +21,13 @@
     "@types/node": "^22.7.6",
     "@types/pg": "^8.11.10",
     "@types/pg-format": "^1.0.5",
-    "@types/pg": "^8.11.10",
-    "@types/pg-format": "^1.0.5",
     "@types/supertest": "^6.0.2",
     "axios": "^1.7.7",
     "axios-mock-adapter": "^2.1.0",
     "dotenv": "^16.4.5",
-    "dotenv": "^16.4.5",
     "jest-extended": "^4.0.2",
     "jest-sorted": "^1.0.15",
     "nodemon": "^3.1.7",
-    "pg": "^8.13.0",
-    "pg-format": "^1.0.4",
     "pg": "^8.13.0",
     "pg-format": "^1.0.4",
     "rimraf": "^6.0.1",
@@ -46,10 +37,6 @@
   },
   "dependencies": {
     "express": "^4.21.1",
-<<<<<<< HEAD
-    "node": "^22.10.0",
-=======
->>>>>>> parent of 2ac1314 (Merge pull request #6 from Glawall/setupDev)
     "supertest": "^7.0.0"
   }
 }
