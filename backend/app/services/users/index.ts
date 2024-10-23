@@ -1,5 +1,5 @@
-export { getAllUsers } from "./getAllUsers";
-export { createUser } from "./createUser";
-export { getByUserId } from "./getByUserId";
-export { updateUser } from "./updateUser";
-export { removeUser } from "./removeUser";
+export { getAllUsers } from "./getAllUsers.ts";
+export { createUser } from "./createUser.ts";
+export { getByUserId } from "./getByUserId.ts";
+export { updateUser } from "./updateUser.ts";
+export { removeUser } from "./removeUser.ts";

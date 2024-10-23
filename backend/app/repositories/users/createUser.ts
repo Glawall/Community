@@ -1,9 +1,9 @@
 import db from "../../connection";
 import { User } from "../../db/seeds/data/test/users";
 import { postcodeConverter } from "../../utils/postcodeConverter";
+
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
-
 export const createUser = async (userBody: User): Promise<User> => {
   const { first_name, last_name, address, postcode } = userBody;
 
