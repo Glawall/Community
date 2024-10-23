@@ -1,6 +1,5 @@
 import { AppError } from "../../errors/AppError";
 import * as helpRequestsRepo from "../../repositories/helpRequests";
-
 import { errors } from "../../errors/errors";
 import { HelpRequestBody } from "../../db/seeds/data/test/help-requests";
 

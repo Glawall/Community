@@ -1,5 +1,4 @@
 import * as helpOffersRepo from "../../repositories/helpOffers/removeHelpOffer";
-import * as helpRequestsRepo from "../../repositories/helpRequests";
 import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
 import { helpOfferExists, helpRequestExists, userExists } from "../../utils";

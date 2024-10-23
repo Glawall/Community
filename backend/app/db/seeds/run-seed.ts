@@ -1,9 +1,8 @@
 import seed from "./seed";
 import db from "../../connection";
-import { Data } from "./data/test"; // Ensure Data is a properly defined type
+import { Data } from "./data/test";
 import { testData } from "./data/test";
-
-// const devData: Data[] = []; // Uncomment and define your dev data structure
+import { devData } from "./data/development";
 
 const ENV = process.env.NODE_ENV || "development";
 
@@ -18,7 +17,7 @@ const runSeed = async (data: Data) => {
   }
 };
 
-const dataToSeed = ENV === "test" ? testData : testData; // Use appropriate data based on the environment
+const dataToSeed = ENV === "test" ? testData : devData;
 
 if (dataToSeed) {
   runSeed(dataToSeed);

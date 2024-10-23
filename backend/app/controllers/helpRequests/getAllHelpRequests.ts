@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-
 import * as helpRequestsService from "../../services/helpRequests";
 
 export const getAllHelpRequests = async (

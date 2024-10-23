@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import * as commentsService from "../../services/comments";
-import { AppError } from "../../errors/AppError";
-import { errors } from "../../errors/errors";
 import { commentExists } from "../../utils/checkExists";
 import { checkValidInput } from "../../utils/checkValidation";
 

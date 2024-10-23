@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import * as helpRequestsServices from "../../services/helpRequests";
-import { AppError } from "../../errors/AppError";
-import { errors } from "../../errors/errors";
 import { checkValidInput } from "../../utils/checkValidation";
 
 export const getByUserId = async (
