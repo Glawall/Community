@@ -19,7 +19,6 @@ interface PostcodeResponse {
     continent: string;
     longitude: number;
     latitude: number;
-    // add other properties if needed
   };
 }
 

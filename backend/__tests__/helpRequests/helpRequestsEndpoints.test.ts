@@ -9,7 +9,12 @@ import {
 } from "../../app/db/seeds/data/test/help-requests";
 
 beforeEach(async () => {
+  await db.query("BEGIN");
   await seed(testData);
+});
+
+afterEach(async () => {
+  await db.query("ROLLBACK");
 });
 
 afterAll(async () => {

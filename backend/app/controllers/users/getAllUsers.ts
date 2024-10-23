@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-
 import * as usersService from "../../services/users";
 
 export const getAllUsers = async (

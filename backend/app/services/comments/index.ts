@@ -1,5 +1,5 @@
 export { getCommentsByRequestId } from "./getCommentsByRequestId.ts";
-export { createComment } from "./createComment.ts";
-export { updateComment } from "./updateComment.ts";
+export { createComment } from "./createComment";
+export { updateComment } from "./updateComment";
 export { getCommentById } from "./getCommentById";
-export { removeComment } from "./removeComment.ts";
+export { removeComment } from "./removeComment";

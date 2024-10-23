@@ -9,6 +9,12 @@ const app: Application = express();
 // * Parser
 app.use(express.json());
 
+// * Route
+app.use(router);
+
+// * Custom Error Handler
+app.use(errorHandler);
+
 (async () => {
   try {
     await preloadHelpTypes();
@@ -16,11 +22,5 @@ app.use(express.json());
     console.error("Error preloading help types:", error);
   }
 })();
-
-// * Route
-app.use(router);
-
-// * Custom Error Handler
-app.use(errorHandler);
 
 export default app;

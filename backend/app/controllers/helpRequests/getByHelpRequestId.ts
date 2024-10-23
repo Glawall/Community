@@ -1,8 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import * as helpRequestsService from "../../services/helpRequests/getByHelpRequestId";
-import { AppError } from "../../errors/AppError";
-import { errors } from "../../errors/errors";
-import { helpRequestExists } from "../../utils";
 import { checkValidInput } from "../../utils/checkValidation";
 
 export const getByHelpRequestId = async (

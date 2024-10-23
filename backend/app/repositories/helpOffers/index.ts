@@ -1,6 +1,6 @@
-export { createHelpOffer } from "./createHelpOffer.ts";
-export { getByHelpRequestId } from "./getByHelpRequestId.ts";
-export { getByUserId } from "./getByUserId.ts";
-export { removeHelpOffer } from "./removeHelpOffer.ts";
-export { updateHelpOffer } from "./updateHelpOffer.ts";
-export { getByHelpRequestIdAndHelperId } from "./getByHelpRequestIdAndHelperId.ts";
+export { createHelpOffer } from "./createHelpOffer";
+export { getByHelpRequestId } from "./getByHelpRequestId";
+export { getByUserId } from "./getByUserId";
+export { removeHelpOffer } from "./removeHelpOffer";
+export { updateHelpOffer } from "./updateHelpOffer";
+export { getByHelpRequestIdAndHelperId } from "./getByHelpRequestIdAndHelperId";
