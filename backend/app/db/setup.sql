@@ -1,23 +1,23 @@
 -- Drop existing databases if they exist
 \c postgres
 
-DROP DATABASE IF EXISTS goodneighbour_test;
-DROP DATABASE IF EXISTS goodneighbour;
+DROP DATABASE IF EXISTS community_test;
+DROP DATABASE IF EXISTS community;
 
 -- Create new databases
-CREATE DATABASE goodneighbour_test;
-CREATE DATABASE goodneighbour;
+CREATE DATABASE community_test;
+CREATE DATABASE community;
 
--- Connect to the goodneighbour_test database and set up ENUM type
--- Run the following commands in a new psql session for goodneighbour_test:
-\c goodneighbour_test;
+-- Connect to the community_test database and set up ENUM type
+-- Run the following commands in a new psql session for community_test:
+\c community_test;
 
 CREATE TYPE REQUEST_STATUS AS ENUM ('active', 'completed', 'closed', 'agreed');
 CREATE TYPE OFFER_STATUS AS ENUM ('accepted', 'declined', 'active');
 
--- Connect to the goodneighbour database and set up ENUM type
+-- Connect to the community database and set up ENUM type
 -- Run the following commands in a new psql session for community:
-\c goodneighbour;
+\c community;
 
 CREATE TYPE REQUEST_STATUS AS ENUM ('active', 'completed', 'closed', 'agreed');
 CREATE TYPE OFFER_STATUS AS ENUM ('accepted', 'declined', 'active');

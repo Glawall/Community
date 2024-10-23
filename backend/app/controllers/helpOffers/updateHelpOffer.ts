@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { checkValidInput } from "../../utils/checkValidation";
 import * as helpOffersService from "../../services/helpOffers";
+import { helpOfferExists } from "../../utils";
 export const updateHelpOffer = async (
   req: Request,
   res: Response,
