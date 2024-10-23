@@ -1,4 +1,6 @@
 import db from "../../connection";
+import { AppError } from "../../errors/AppError";
+import { errors } from "../../errors/errors";
 
 export const removeHelpOffer = async (
   help_request_id: number,

@@ -7,12 +7,7 @@ import seed from "../../app/db/seeds/seed";
 import { User } from "../../app/db/seeds/data/test/users";
 
 beforeEach(async () => {
-  await db.query("BEGIN");
   await seed(testData);
-});
-
-afterEach(async () => {
-  await db.query("ROLLBACK");
 });
 
 afterAll(async () => {

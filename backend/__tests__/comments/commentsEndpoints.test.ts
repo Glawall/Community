@@ -6,12 +6,7 @@ import seed from "../../app/db/seeds/seed";
 import { Comment, NewCommentBody } from "../../app/db/seeds/data/test/comments";
 
 beforeEach(async () => {
-  await db.query("BEGIN");
   await seed(testData);
-});
-
-afterEach(async () => {
-  await db.query("ROLLBACK");
 });
 
 afterAll(async () => {
