@@ -6,13 +6,9 @@ import seed from "../../app/db/seeds/seed";
 import { HelpType } from "../../app/db/seeds/data/test/help-types";
 
 beforeEach(async () => {
-  await db.query("BEGIN");
   await seed(testData);
 });
 
-afterEach(async () => {
-  await db.query("ROLLBACK");
-});
 afterAll(async () => {
   await db.end();
 });
