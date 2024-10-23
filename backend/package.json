@@ -37,7 +37,10 @@
   },
   "dependencies": {
     "express": "^4.21.1",
+<<<<<<< HEAD
     "node": "^22.10.0",
+=======
+>>>>>>> parent of 2ac1314 (Merge pull request #6 from Glawall/setupDev)
     "supertest": "^7.0.0"
   }
 }
